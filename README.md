@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # KingSports - Premium Sports E-Commerce
 
 A modern, production-ready React e-commerce application for selling sports clothing and equipment.
@@ -101,3 +102,6 @@ kingsports/
 ## License
 
 MIT
+=======
+# sm
+>>>>>>> 95ebd85a7dab908bb9aee87047273f57b9a2c0ea
