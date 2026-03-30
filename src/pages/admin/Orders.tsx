@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
-
-interface Order {
-  id: string;
-  customer: string;
-  email: string;
-  total: number;
-  status: string;
-  date: string;
-  items: number;
-}
+import React, { useEffect, useState } from 'react';
+import { Order } from '../../types';
+import { backendService } from '../../services/backend';
 
 const Orders: React.FC = () => {
-  const [orders] = useState<Order[]>([
+  const [orders, setOrders] = useState<Order[]>([
     { id: '#ORD-001', customer: 'John Doe', email: 'john@example.com', total: 129.99, status: 'Completed', date: '2024-01-20', items: 2 },
     { id: '#ORD-002', customer: 'Jane Smith', email: 'jane@example.com', total: 89.50, status: 'Processing', date: '2024-01-20', items: 1 },
     { id: '#ORD-003', customer: 'Mike Johnson', email: 'mike@example.com', total: 199.99, status: 'Shipped', date: '2024-01-19', items: 3 },
@@ -23,6 +15,27 @@ const Orders: React.FC = () => {
   ]);
 
   const [filter, setFilter] = useState('All');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!backendService.isConfigured()) return;
+
+    const load = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const apiOrders = await backendService.getOrders();
+        setOrders(apiOrders);
+      } catch (err: any) {
+        setError(err?.message || 'Failed to load orders from backend');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    load();
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -74,6 +87,12 @@ const Orders: React.FC = () => {
           </div>
         </div>
 
+        {error && (
+          <div className="px-6 py-4 text-sm text-red-700 bg-red-50 border-b border-red-100">
+            {error}
+          </div>
+        )}
+
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
@@ -118,7 +137,9 @@ const Orders: React.FC = () => {
 
         <div className="p-6 border-t border-gray-200 flex items-center justify-between">
           <p className="text-sm text-gray-600">
-            Showing {filteredOrders.length} of {orders.length} orders
+            {isLoading
+              ? 'Loading orders...'
+              : `Showing ${filteredOrders.length} of ${orders.length} orders`}
           </p>
           <div className="flex gap-2">
             <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">

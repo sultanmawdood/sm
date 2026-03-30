@@ -27,3 +27,20 @@ export interface CartContextType {
   getCartTotal: () => number;
   getCartCount: () => number;
 }
+
+export interface Order {
+  id: string;
+  customer: string;
+  email: string;
+  total: number;
+  status: string;
+  date: string;
+  items: number;
+}
+
+export interface DashboardStats {
+  totalRevenue: number;
+  totalOrders: number;
+  totalCustomers: number;
+  conversionRate: number;
+}

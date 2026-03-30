@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[calc(100vh-64px)] min-h-[600px] flex items-center justify-center overflow-hidden bg-light">
         <img
-          src="https://images.unsplash.com/photo-1556906781-9cba4a6f5e6f?w=1920&h=1080&fit=crop&q=80"
+          src="https://i.pinimg.com/736x/fe/0c/60/fe0c600fb30d3f975de4d3f3d73106d1.jpg"
           alt="Hero"
           className="absolute inset-0 w-full h-full object-cover"
         />

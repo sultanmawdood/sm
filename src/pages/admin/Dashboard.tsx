@@ -1,21 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { backendService } from '../../services/backend';
+import { DashboardStats, Order } from '../../types';
 
 const Dashboard: React.FC = () => {
-  const stats = {
+  const [stats, setStats] = useState<DashboardStats>({
     totalRevenue: 45231.89,
     totalOrders: 234,
     totalCustomers: 1893,
     conversionRate: 3.24,
-  };
+  });
 
-  const recentOrders = [
-    { id: '#ORD-001', customer: 'John Doe', amount: 129.99, status: 'Completed', date: '2024-01-20' },
-    { id: '#ORD-002', customer: 'Jane Smith', amount: 89.50, status: 'Processing', date: '2024-01-20' },
-    { id: '#ORD-003', customer: 'Mike Johnson', amount: 199.99, status: 'Shipped', date: '2024-01-19' },
-    { id: '#ORD-004', customer: 'Sarah Williams', amount: 149.99, status: 'Completed', date: '2024-01-19' },
-    { id: '#ORD-005', customer: 'Tom Brown', amount: 79.99, status: 'Processing', date: '2024-01-18' },
-  ];
+  const [recentOrders, setRecentOrders] = useState<Order[]>([
+    { id: '#ORD-001', customer: 'John Doe', email: 'john@example.com', total: 129.99, status: 'Completed', date: '2024-01-20', items: 2 },
+    { id: '#ORD-002', customer: 'Jane Smith', email: 'jane@example.com', total: 89.50, status: 'Processing', date: '2024-01-20', items: 1 },
+    { id: '#ORD-003', customer: 'Mike Johnson', email: 'mike@example.com', total: 199.99, status: 'Shipped', date: '2024-01-19', items: 3 },
+    { id: '#ORD-004', customer: 'Sarah Williams', email: 'sarah@example.com', total: 149.99, status: 'Completed', date: '2024-01-19', items: 2 },
+    { id: '#ORD-005', customer: 'Tom Brown', email: 'tom@example.com', total: 79.99, status: 'Processing', date: '2024-01-18', items: 1 },
+  ]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!backendService.isConfigured()) return;
+
+    const load = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const data = await backendService.getDashboard();
+        setStats(data.stats);
+        setRecentOrders(
+          data.recentOrders.map((o) => ({
+            ...o,
+            email: o.email || '',
+            items: o.items || 1,
+          }))
+        );
+      } catch (err: any) {
+        setError(err?.message || 'Failed to load dashboard data');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    load();
+  }, []);
 
   const topProducts = [
     { name: 'Air Max Pro', sales: 145, revenue: 14500 },
@@ -38,7 +68,10 @@ const Dashboard: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600 mt-1">Welcome back! Here's what's happening with your store.</p>
+          <p className="text-gray-600 mt-1">
+            {isLoading ? 'Loading latest data from backend...' : "Welcome back! Here's what's happening with your store."}
+          </p>
+          {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -126,7 +159,7 @@ const Dashboard: React.FC = () => {
                     <tr key={order.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">{order.id}</td>
                       <td className="px-6 py-4 text-sm text-gray-600">{order.customer}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">${order.amount}</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">${order.total}</td>
                       <td className="px-6 py-4">
                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(order.status)}`}>
                           {order.status}
