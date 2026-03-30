@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-white sticky top-0 z-50 shadow-sm">
+    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/60 border-b border-white/30 shadow-[0_6px_30px_rgba(0,0,0,0.05)] supports-[backdrop-filter]:bg-white/50">
       <div className="max-w-[1920px] mx-auto px-4 sm:px-8 lg:px-12">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center">
@@ -33,19 +33,19 @@ const Navbar: React.FC = () => {
           </Link>
 
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 flex-1 justify-center">
-            <Link to="/" className="text-primary hover:text-secondary transition-colors font-medium text-base">
+            <Link to="/" className="text-primary/90 hover:text-primary transition-colors font-medium text-base">
               Home
             </Link>
-            <Link to="/shop" className="text-primary hover:text-secondary transition-colors font-medium text-base">
+            <Link to="/shop" className="text-primary/90 hover:text-primary transition-colors font-medium text-base">
               New & Featured
             </Link>
-            <Link to="/shop?category=Footwear" className="text-primary hover:text-secondary transition-colors font-medium text-base">
+            <Link to="/shop?category=Footwear" className="text-primary/90 hover:text-primary transition-colors font-medium text-base">
               Shoes
             </Link>
-            <Link to="/shop?category=Tops" className="text-primary hover:text-secondary transition-colors font-medium text-base">
+            <Link to="/shop?category=Tops" className="text-primary/90 hover:text-primary transition-colors font-medium text-base">
               Clothing
             </Link>
-            <Link to="/shop?category=Accessories" className="text-primary hover:text-secondary transition-colors font-medium text-base">
+            <Link to="/shop?category=Accessories" className="text-primary/90 hover:text-primary transition-colors font-medium text-base">
               Accessories
             </Link>
           </div>
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search"
-                  className="w-40 lg:w-48 px-4 py-2 pl-10 bg-light rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-40 lg:w-48 px-4 py-2 pl-10 bg-white/60 border border-white/50 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/60 backdrop-blur-md placeholder:text-secondary/70"
                 />
                 <svg className="w-5 h-5 text-secondary absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="hidden sm:flex items-center gap-2 text-primary hover:text-secondary transition-colors"
+                  className="hidden sm:flex items-center gap-2 text-primary/90 hover:text-primary transition-colors"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -92,14 +92,14 @@ const Navbar: React.FC = () => {
                 )}
               </div>
             ) : (
-              <Link to="/auth" className="hidden sm:block text-primary hover:text-secondary transition-colors">
+              <Link to="/auth" className="hidden sm:block text-primary/90 hover:text-primary transition-colors">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </Link>
             )}
             <Link to="/cart" className="relative group hidden sm:block">
-              <svg className="w-6 h-6 text-primary group-hover:text-secondary transition-colors" fill={wishlist.length > 0 ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-primary group-hover:text-primary transition-colors" fill={wishlist.length > 0 ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
               {wishlist.length > 0 && (
@@ -109,7 +109,7 @@ const Navbar: React.FC = () => {
               )}
             </Link>
             <Link to="/cart" className="relative group">
-              <svg className="w-6 h-6 text-primary group-hover:text-secondary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-primary group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               {getCartCount() > 0 && (
@@ -135,7 +135,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="lg:hidden bg-white border-t">
+        <div className="lg:hidden backdrop-blur-xl bg-white/70 border-t border-white/40 shadow-inner">
           <div className="px-4 py-4 space-y-3">
             <Link to="/" className="block py-2 text-primary hover:text-secondary font-medium" onClick={() => setIsMenuOpen(false)}>
               Home
