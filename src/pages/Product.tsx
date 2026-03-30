@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import Button from '../components/Button';
 import ProductCard from '../components/ProductCard';
+import StockBadge from '../components/StockBadge';
+import TrustBadges from '../components/TrustBadges';
 import { useProduct, useProducts } from '../hooks/useProducts';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
+import Breadcrumb from '../components/Breadcrumb';
+import ImageZoom from '../components/ImageZoom';
+import ProductReviews from '../components/ProductReviews';
 
 const Product: React.FC = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('M');
   
@@ -36,37 +43,48 @@ const Product: React.FC = () => {
     }
   };
 
+  const inWishlist = isInWishlist(product?.id || 0);
+
+  const handleWishlistToggle = () => {
+    if (product) {
+      if (inWishlist) {
+        removeFromWishlist(product.id);
+      } else {
+        addToWishlist(product);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-[1920px] mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-12">
-        <Link to="/shop" className="inline-flex items-center text-secondary hover:text-primary transition-colors mb-6 sm:mb-8 text-sm sm:text-base">
-          <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back
-        </Link>
+        <Breadcrumb items={[
+          { label: 'Shop', path: '/shop' },
+          { label: product?.category || '', path: `/shop?category=${product?.category}` },
+          { label: product?.name || '' }
+        ]} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-16 sm:mb-20">
           {/* Product Image */}
-          <div className="relative aspect-square rounded-lg overflow-hidden bg-light">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <ImageZoom src={product.image} alt={product.name} />
 
           {/* Product Info */}
           <div className="lg:py-8">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4">{product.name}</h1>
             
-            <p className="text-secondary text-base sm:text-lg mb-6">{product.category}</p>
+            <p className="text-secondary text-base sm:text-lg mb-4">{product.category}</p>
+
+            <div className="mb-6">
+              <StockBadge inStock={true} quantity={Math.floor(Math.random() * 20) + 1} />
+            </div>
 
             <div className="text-3xl sm:text-4xl font-medium text-primary mb-8">${product.price.toFixed(2)}</div>
 
             <p className="text-primary text-base sm:text-lg mb-8 leading-relaxed">
               {product.description}
             </p>
+
+            <TrustBadges />
 
             {/* Size Selection */}
             <div className="mb-8">
@@ -120,8 +138,15 @@ const Product: React.FC = () => {
               <Button onClick={handleAddToCart} variant="primary" className="w-full py-4 text-base sm:text-lg">
                 Add to Cart
               </Button>
-              <Button variant="secondary" className="w-full py-4 text-base sm:text-lg">
-                Favorite
+              <Button 
+                onClick={handleWishlistToggle}
+                variant="secondary" 
+                className="w-full py-4 text-base sm:text-lg flex items-center justify-center gap-2"
+              >
+                <svg className={`w-5 h-5 ${inWishlist ? 'fill-current' : ''}`} fill={inWishlist ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                {inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
               </Button>
             </div>
 
@@ -143,6 +168,9 @@ const Product: React.FC = () => {
                 </ul>
               </div>
             </div>
+
+            {/* Reviews */}
+            <ProductReviews />
           </div>
         </div>
 

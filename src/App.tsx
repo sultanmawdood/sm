@@ -2,8 +2,10 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
+import { WishlistProvider } from './context/WishlistContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import LiveChat from './components/LiveChat';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -18,33 +20,36 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <CartProvider>
-        <Router>
-          <div className="flex flex-col min-h-screen bg-white">
-            <Navbar />
-            <main className="flex-grow">
-              <Suspense fallback={<LoadingSpinner fullScreen />}>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/shop" element={<Shop />} />
-                  <Route path="/product/:id" element={<Product />} />
-                  <Route 
-                    path="/cart" 
-                    element={
-                      <ProtectedRoute>
-                        <Cart />
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </main>
-            <Footer />
-          </div>
-        </Router>
-      </CartProvider>
+      <WishlistProvider>
+        <CartProvider>
+          <Router>
+            <div className="flex flex-col min-h-screen bg-white">
+              <Navbar />
+              <main className="flex-grow">
+                <Suspense fallback={<LoadingSpinner fullScreen />}>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/product/:id" element={<Product />} />
+                    <Route 
+                      path="/cart" 
+                      element={
+                        <ProtectedRoute>
+                          <Cart />
+                        </ProtectedRoute>
+                      } 
+                    />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
+              </main>
+              <Footer />
+              <LiveChat />
+            </div>
+          </Router>
+        </CartProvider>
+      </WishlistProvider>
     </AuthProvider>
   );
 };
