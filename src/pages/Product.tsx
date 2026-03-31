@@ -56,7 +56,7 @@ const Product: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-primary">
       <div className="max-w-[1920px] mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-12">
         <Breadcrumb items={[
           { label: 'Shop', path: '/shop' },
@@ -70,17 +70,17 @@ const Product: React.FC = () => {
 
           {/* Product Info */}
           <div className="lg:py-8">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4">{product.name}</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary dark:text-white mb-4">{product.name}</h1>
             
-            <p className="text-secondary text-base sm:text-lg mb-4">{product.category}</p>
+            <p className="text-secondary dark:text-gray-300 text-base sm:text-lg mb-4">{product.category}</p>
 
             <div className="mb-6">
               <StockBadge inStock={true} quantity={Math.floor(Math.random() * 20) + 1} />
             </div>
 
-            <div className="text-3xl sm:text-4xl font-medium text-primary mb-8">${product.price.toFixed(2)}</div>
+            <div className="text-3xl sm:text-4xl font-medium text-primary dark:text-white mb-8">${product.price.toFixed(2)}</div>
 
-            <p className="text-primary text-base sm:text-lg mb-8 leading-relaxed">
+            <p className="text-primary dark:text-white text-base sm:text-lg mb-8 leading-relaxed">
               {product.description}
             </p>
 
@@ -89,8 +89,8 @@ const Product: React.FC = () => {
             {/* Size Selection */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-primary font-medium text-base sm:text-lg">Select Size</h3>
-                <button className="text-secondary hover:text-primary text-sm">Size Guide</button>
+                <h3 className="text-primary dark:text-white font-medium text-base sm:text-lg">Select Size</h3>
+                <button className="text-secondary dark:text-gray-300 hover:text-primary dark:hover:text-white text-sm">Size Guide</button>
               </div>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                 {sizes.map((size) => (
@@ -100,7 +100,7 @@ const Product: React.FC = () => {
                     className={`py-3 sm:py-4 rounded-lg border-2 font-medium transition-all text-sm sm:text-base ${
                       selectedSize === size
                         ? 'border-primary bg-primary text-white'
-                        : 'border-gray-300 text-primary hover:border-primary'
+                        : 'border-gray-300 dark:border-gray-600 text-primary dark:text-white hover:border-primary'
                     }`}
                   >
                     {size}
@@ -111,20 +111,20 @@ const Product: React.FC = () => {
 
             {/* Quantity */}
             <div className="mb-8">
-              <h3 className="text-primary font-medium mb-4 text-base sm:text-lg">Quantity</h3>
-              <div className="flex items-center border-2 border-gray-300 rounded-lg w-fit">
+              <h3 className="text-primary dark:text-white font-medium mb-4 text-base sm:text-lg">Quantity</h3>
+              <div className="flex items-center border-2 border-gray-300 dark:border-gray-600 rounded-lg w-fit">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="px-4 sm:px-6 py-3 text-primary hover:bg-light transition-colors"
+                  className="px-4 sm:px-6 py-3 text-primary dark:text-white hover:bg-light dark:hover:bg-secondary transition-colors"
                 >
                   <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                   </svg>
                 </button>
-                <span className="px-6 sm:px-8 py-3 text-primary font-medium text-base sm:text-lg">{quantity}</span>
+                <span className="px-6 sm:px-8 py-3 text-primary dark:text-white font-medium text-base sm:text-lg">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="px-4 sm:px-6 py-3 text-primary hover:bg-light transition-colors"
+                  className="px-4 sm:px-6 py-3 text-primary dark:text-white hover:bg-light dark:hover:bg-secondary transition-colors"
                 >
                   <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -151,16 +151,16 @@ const Product: React.FC = () => {
             </div>
 
             {/* Product Details */}
-            <div className="border-t border-gray-200 pt-8 space-y-6">
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-8 space-y-6">
               <div>
-                <h4 className="text-primary font-medium mb-3 text-base sm:text-lg">Delivery & Returns</h4>
-                <p className="text-secondary text-sm sm:text-base">Free standard delivery on orders over $100</p>
-                <p className="text-secondary text-sm sm:text-base mt-2">Free 30-day returns</p>
+                <h4 className="text-primary dark:text-white font-medium mb-3 text-base sm:text-lg">Delivery & Returns</h4>
+                <p className="text-secondary dark:text-gray-300 text-sm sm:text-base">Free standard delivery on orders over $100</p>
+                <p className="text-secondary dark:text-gray-300 text-sm sm:text-base mt-2">Free 30-day returns</p>
               </div>
               
               <div>
-                <h4 className="text-primary font-medium mb-3 text-base sm:text-lg">Product Information</h4>
-                <ul className="space-y-2 text-secondary text-sm sm:text-base">
+                <h4 className="text-primary dark:text-white font-medium mb-3 text-base sm:text-lg">Product Information</h4>
+                <ul className="space-y-2 text-secondary dark:text-gray-300 text-sm sm:text-base">
                   <li>• Premium quality materials</li>
                   <li>• Moisture-wicking technology</li>
                   <li>• Durable construction</li>
@@ -177,7 +177,7 @@ const Product: React.FC = () => {
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6 sm:mb-8">You Might Also Like</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-primary dark:text-white mb-6 sm:mb-8">You Might Also Like</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {relatedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />

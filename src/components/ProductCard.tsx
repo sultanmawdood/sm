@@ -45,8 +45,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <Link to={`/product/${product.id}`} className="group block">
-      <div className="bg-light rounded-lg overflow-hidden mb-3 relative transition-all duration-300 group-hover:shadow-lg">
-        <div className="relative overflow-hidden aspect-square bg-white">
+      <div className="bg-light dark:bg-secondary rounded-lg overflow-hidden mb-3 relative transition-all duration-300 group-hover:shadow-lg">
+        <div className="relative overflow-hidden aspect-square bg-white dark:bg-primary">
           {!imageLoaded && (
             <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
           )}
@@ -78,8 +78,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="absolute bottom-2 right-2 flex gap-2">
             <button
               onClick={handleWishlist}
-              className={`bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-lg ${
-                isInWishlist(product.id) ? 'text-red-500' : 'text-primary hover:text-red-500'
+              className={`bg-white dark:bg-secondary text-primary dark:text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-lg ${
+                isInWishlist(product.id) ? 'text-red-500' : 'text-primary dark:text-white hover:text-red-500'
               }`}
               aria-label="Add to wishlist"
             >
@@ -89,7 +89,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </button>
             <button
               onClick={handleAddToCart}
-              className="bg-white text-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 hover:bg-primary hover:text-white shadow-lg"
+              className="bg-white dark:bg-secondary text-primary dark:text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 hover:bg-primary hover:text-white shadow-lg"
               aria-label="Add to cart"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,19 +104,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <p className="text-accent text-xs sm:text-sm font-medium mb-1 uppercase tracking-wide">
           {product.category}
         </p>
-        <h3 className="text-primary font-medium text-sm sm:text-base mb-1 group-hover:text-secondary transition-colors line-clamp-2">
+        <h3 className="text-primary dark:text-white font-medium text-sm sm:text-base mb-1 group-hover:text-secondary transition-colors line-clamp-2">
           {product.name}
         </h3>
         
         {/* Rating */}
         <div className="flex items-center gap-2 mb-2">
           {renderStars(product.rating)}
-          <span className="text-xs text-secondary">({product.rating})</span>
+          <span className="text-xs text-secondary dark:text-gray-400">({product.rating})</span>
         </div>
         
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-primary font-semibold text-base sm:text-lg">
+            <p className="text-primary dark:text-white font-semibold text-base sm:text-lg">
               ${product.price.toFixed(2)}
             </p>
           </div>

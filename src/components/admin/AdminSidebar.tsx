@@ -32,9 +32,9 @@ const AdminSidebar: React.FC = () => {
         </svg>
       </button>
 
-      <aside className={`fixed lg:sticky top-16 left-0 h-[calc(100vh-64px)] w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+      <aside className={`fixed lg:sticky top-16 left-0 h-[calc(100vh-64px)] w-64 bg-white dark:bg-secondary border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-300 z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
         <div className="p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">Admin Panel</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Admin Panel</h2>
           <nav className="space-y-2">
             {menuItems.map((item) => (
               <Link
@@ -43,8 +43,8 @@ const AdminSidebar: React.FC = () => {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                   isActive(item.path)
-                    ? 'bg-blue-50 text-blue-600 font-medium'
-                    : 'text-gray-700 hover:bg-gray-50'
+                    ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,10 +56,10 @@ const AdminSidebar: React.FC = () => {
           </nav>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200">
+        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200 dark:border-gray-700">
           <Link
             to="/"
-            className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+            className="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />

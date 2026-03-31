@@ -94,7 +94,7 @@ export const products = [
     name: "Heart Rate Monitor Chest Strap",
     category: "Electronics",
     price: 49.99,
-    image: "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=800&h=800&fit=crop&q=80",
+    image: "https://i.pinimg.com/1200x/33/b7/21/33b72173c057d15fa6874cfac675616d.jpg",
     rating: 4.2,
     stock: 30,
     description: "Professional-grade heart rate monitoring with real-time data transmission to your devices. Comfortable and accurate."

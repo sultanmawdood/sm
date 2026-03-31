@@ -4,16 +4,16 @@ import PaymentMethods from './PaymentMethods';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-primary text-white mt-20">
+    <footer className="bg-primary dark:bg-primary text-white mt-20">
       <div className="max-w-[1920px] mx-auto px-4 sm:px-8 lg:px-12 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <h4 className="text-xs font-medium uppercase tracking-wider mb-4">Find A Store</h4>
             <ul className="space-y-3">
-              <li><Link to="/auth" className="text-white/70 hover:text-white transition-colors text-sm">Become A Member</Link></li>
-              <li><a href="#newsletter" className="text-white/70 hover:text-white transition-colors text-sm">Sign Up for Email</a></li>
-              <li><a href="mailto:support@kingsports.com" className="text-white/70 hover:text-white transition-colors text-sm">Send Us Feedback</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors text-sm">Student Discounts</a></li>
+              <li><Link to="/auth" className="text-white/70 hover:text-white dark:hover:text-accent transition-colors text-sm">Become A Member</Link></li>
+              <li><a href="#newsletter" className="text-white/70 hover:text-white dark:hover:text-accent transition-colors text-sm">Sign Up for Email</a></li>
+              <li><a href="mailto:support@kingsports.com" className="text-white/70 hover:text-white dark:hover:text-accent transition-colors text-sm">Send Us Feedback</a></li>
+              <li><a href="#" className="text-white/70 hover:text-white dark:hover:text-accent transition-colors text-sm">Student Discounts</a></li>
             </ul>
           </div>
 

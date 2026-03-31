@@ -19,7 +19,7 @@ const MembershipSignup: React.FC = () => {
 
   if (isSubscribed) {
     return (
-      <section className="py-16 sm:py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+      <section className="py-16 sm:py-20 bg-gradient-to-r from-primary via-dark-lighter to-secondary">
         <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 text-center">
           <div className="bg-white rounded-lg p-8 shadow-xl">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -44,7 +44,7 @@ const MembershipSignup: React.FC = () => {
   }
 
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+    <section className="py-16 sm:py-20 bg-gradient-to-r from-primary via-dark-lighter to-secondary">
       <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 text-center">
         <div className="text-white mb-8">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4">
@@ -57,7 +57,7 @@ const MembershipSignup: React.FC = () => {
 
         {/* Member Benefits */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white border border-white/20">
             <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
@@ -67,7 +67,7 @@ const MembershipSignup: React.FC = () => {
             <p className="text-sm opacity-90">Access to member-only releases and limited editions</p>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white border border-white/20">
             <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
@@ -77,7 +77,7 @@ const MembershipSignup: React.FC = () => {
             <p className="text-sm opacity-90">Member-exclusive sales and early access to promotions</p>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white border border-white/20">
             <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -89,8 +89,8 @@ const MembershipSignup: React.FC = () => {
         </div>
 
         {/* Email Signup Form */}
-        <div className="bg-white rounded-lg p-8 shadow-xl max-w-md mx-auto">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">Sign Up for Email</h3>
+        <div className="bg-white rounded-lg p-8 shadow-xl max-w-md mx-auto border border-gray-200">
+          <h3 className="text-2xl font-bold text-primary mb-2">Sign Up for Email</h3>
           <p className="text-gray-600 mb-6">Get exclusive offers and updates delivered to your inbox</p>
           
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -101,14 +101,14 @@ const MembershipSignup: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
             </div>
             
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-dark-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">

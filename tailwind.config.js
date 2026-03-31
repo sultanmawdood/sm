@@ -4,13 +4,17 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        primary: '#111111',
-        secondary: '#757575',
-        accent: '#fa5400',
-        light: '#f5f5f5',
+        primary: '#131619',
+        secondary: '#2a2d31',
+        accent: '#00ff88',
+        light: '#f8f9fa',
+        dark: '#131619',
+        'dark-lighter': '#1a1d21',
+        'dark-hover': '#1f2328',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

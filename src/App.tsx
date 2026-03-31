@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LiveChat from './components/LiveChat';
@@ -35,7 +36,7 @@ const AdminShell: React.FC = () => (
 );
 
 const StoreLayout: React.FC = () => (
-  <div className="flex flex-col min-h-screen bg-white">
+  <div className="flex flex-col min-h-screen bg-white dark:bg-primary">
     <Navbar />
     <main className="flex-grow">
       <Suspense fallback={<LoadingSpinner fullScreen />}>
@@ -92,19 +93,21 @@ const router = createBrowserRouter([
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <WishlistProvider>
-        <CartProvider>
-          <RouterProvider
-            router={router}
-            fallbackElement={<LoadingSpinner fullScreen />}
-            future={{
-              v7_startTransition: true,
-            }}
-          />
-        </CartProvider>
-      </WishlistProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <RouterProvider
+              router={router}
+              fallbackElement={<LoadingSpinner fullScreen />}
+              future={{
+                v7_startTransition: true,
+              }}
+            />
+          </CartProvider>
+        </WishlistProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

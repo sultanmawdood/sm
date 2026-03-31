@@ -9,7 +9,7 @@ interface CategoryCardProps {
 const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
     <Link to={`/shop?category=${category.name}`} className="group block">
-      <div className="relative overflow-hidden rounded-lg aspect-[4/5] bg-light">
+      <div className="relative overflow-hidden rounded-lg aspect-[4/5] bg-light dark:bg-secondary">
         <img
           src={category.image}
           alt={category.name}

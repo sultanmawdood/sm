@@ -17,9 +17,9 @@ const Button: React.FC<ButtonProps> = ({
   const baseStyles = 'px-6 py-3 rounded-full font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-base';
   
   const variants = {
-    primary: 'bg-primary text-white hover:bg-opacity-80',
-    secondary: 'bg-white text-primary border border-gray-300 hover:border-primary',
-    accent: 'bg-accent text-white hover:bg-opacity-90',
+    primary: 'bg-primary text-white hover:bg-dark-hover border border-primary',
+    secondary: 'bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white',
+    accent: 'bg-accent text-primary hover:bg-opacity-90 border border-accent',
   };
 
   return (
