@@ -278,5 +278,6 @@ export const categories: Category[] = [
   { id: 2, name: "Tops", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop&q=80" },
   { id: 3, name: "Bottoms", image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&h=800&fit=crop&q=80" },
   { id: 4, name: "Accessories", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=800&fit=crop&q=80" },
-  { id: 5, name: "Outerwear", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&h=800&fit=crop&q=80" }
+  { id: 5, name: "Outerwear", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&h=800&fit=crop&q=80" },
+  { id: 6, name: "Electronics", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop&q=80" }
 ];

@@ -9,6 +9,7 @@ import LiveChat from './components/LiveChat';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminLayout from './components/admin/AdminLayout';
+import AdminProtectedRoute from './components/admin/AdminProtectedRoute';
 
 const Home = lazy(() => import('./pages/Home'));
 const Shop = lazy(() => import('./pages/Shop'));
@@ -16,6 +17,7 @@ const Product = lazy(() => import('./pages/Product'));
 const Cart = lazy(() => import('./pages/Cart'));
 const Auth = lazy(() => import('./pages/Auth'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
 const Dashboard = lazy(() => import('./pages/admin/Dashboard'));
 const Orders = lazy(() => import('./pages/admin/Orders'));
 const Products = lazy(() => import('./pages/admin/Products'));
@@ -23,13 +25,13 @@ const Customers = lazy(() => import('./pages/admin/Customers'));
 const Analytics = lazy(() => import('./pages/admin/Analytics'));
 
 const AdminShell: React.FC = () => (
-  <ProtectedRoute>
+  <AdminProtectedRoute>
     <AdminLayout>
       <Suspense fallback={<LoadingSpinner fullScreen />}>
         <Outlet />
       </Suspense>
     </AdminLayout>
-  </ProtectedRoute>
+  </AdminProtectedRoute>
 );
 
 const StoreLayout: React.FC = () => (
@@ -47,10 +49,19 @@ const StoreLayout: React.FC = () => (
 
 const router = createBrowserRouter([
   {
+    path: '/admin/login',
+    element: (
+      <Suspense fallback={<LoadingSpinner fullScreen />}>
+        <AdminLogin />
+      </Suspense>
+    ),
+  },
+  {
     path: '/admin',
     element: <AdminShell />,
     children: [
       { index: true, element: <Dashboard /> },
+      { path: 'dashboard', element: <Dashboard /> },
       { path: 'orders', element: <Orders /> },
       { path: 'products', element: <Products /> },
       { path: 'customers', element: <Customers /> },

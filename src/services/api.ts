@@ -14,6 +14,7 @@ const mapApiProduct = (apiProduct: any): Product => ({
   image: apiProduct.image,
   rating: apiProduct.rating?.rate ?? apiProduct.rating ?? 4.5,
   description: apiProduct.description,
+  stock: apiProduct.stock || 0,
 });
 
 export const productService = {
@@ -65,7 +66,7 @@ export const productService = {
   getProductsByCategory: async (category: string): Promise<Product[]> => {
     try {
       if (useBackend()) {
-        const response = await fetch(`${API_BASE_URL}/products/category/${category}`);
+        const response = await fetch(`${API_BASE_URL}/products?category=${category}`);
         if (!response.ok) {
           throw new Error('Failed to fetch products by category');
         }
@@ -83,11 +84,14 @@ export const productService = {
   getCategories: async (): Promise<string[]> => {
     try {
       if (useBackend()) {
-        const response = await fetch(`${API_BASE_URL}/products/categories`);
+        // Get unique categories from products
+        const response = await fetch(`${API_BASE_URL}/products`);
         if (!response.ok) {
-          throw new Error('Failed to fetch categories');
+          throw new Error('Failed to fetch products');
         }
-        return await response.json();
+        const data = await response.json();
+        const uniqueCategories = [...new Set(data.map((p: any) => p.category))];
+        return uniqueCategories;
       }
       return categories.map((c) => c.name);
     } catch (error) {

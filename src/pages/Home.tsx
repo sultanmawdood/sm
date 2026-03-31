@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard';
 import CategoryCard from '../components/CategoryCard';
 import Button from '../components/Button';
 import Newsletter from '../components/Newsletter';
+import MembershipSignup from '../components/MembershipSignup';
 import { useProducts } from '../hooks/useProducts';
 import { ProductCardSkeleton } from '../components/ui/Skeleton';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
@@ -106,6 +107,9 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Membership Signup */}
+      <MembershipSignup />
 
       {/* Benefits */}
       <section className="py-12 sm:py-16 bg-white">

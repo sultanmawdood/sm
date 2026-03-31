@@ -1,9 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useProducts } from '../../hooks/useProducts';
-import { Link } from 'react-router-dom';
+import { adminProductService } from '../../services/adminApi';
+import ProductModal from '../../components/admin/ProductModal';
+import { Product } from '../../types';
 
 const Products: React.FC = () => {
   const { products, isLoading } = useProducts();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  // Filter products based on search and category
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const handleAddProduct = () => {
+    setEditingProduct(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEditProduct = (product: Product) => {
+    setEditingProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteProduct = async (productId: number) => {
+    if (!confirm('Are you sure you want to delete this product?')) {
+      return;
+    }
+
+    try {
+      await adminProductService.deleteProduct(productId);
+      alert('Product deleted successfully!');
+      window.location.reload(); // Refresh the page to show updated data
+    } catch (error) {
+      alert('Failed to delete product. Please try again.');
+    }
+  };
+
+  const handleSaveProduct = async (productData: any) => {
+    setIsSubmitting(true);
+    try {
+      if (editingProduct) {
+        await adminProductService.updateProduct(editingProduct.id, productData);
+        alert('Product updated successfully!');
+      } else {
+        await adminProductService.createProduct(productData);
+        alert('Product created successfully!');
+      }
+      setIsModalOpen(false);
+      window.location.reload(); // Refresh the page to show updated data
+    } catch (error) {
+      alert('Failed to save product. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (isLoading) {
     return <div className="p-8">Loading...</div>;
@@ -16,15 +73,15 @@ const Products: React.FC = () => {
           <h1 className="text-3xl font-bold text-gray-900">Products</h1>
           <p className="text-gray-600 mt-1">Manage your product inventory</p>
         </div>
-        <Link
-          to="/admin/products/new"
+        <button
+          onClick={handleAddProduct}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
           Add Product
-        </Link>
+        </button>
       </div>
 
       <div className="bg-white rounded-lg shadow">
@@ -33,14 +90,22 @@ const Products: React.FC = () => {
             <input
               type="text"
               placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>All Categories</option>
-              <option>Footwear</option>
-              <option>Tops</option>
-              <option>Bottoms</option>
-              <option>Accessories</option>
+            <select 
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="all">All Categories</option>
+              <option value="Footwear">Footwear</option>
+              <option value="Tops">Tops</option>
+              <option value="Bottoms">Bottoms</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Outerwear">Outerwear</option>
+              <option value="Electronics">Electronics</option>
             </select>
           </div>
         </div>
@@ -58,7 +123,7 @@ const Products: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <tr key={product.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
@@ -90,10 +155,16 @@ const Products: React.FC = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex gap-2">
-                      <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                      <button 
+                        onClick={() => handleEditProduct(product)}
+                        className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                      >
                         Edit
                       </button>
-                      <button className="text-red-600 hover:text-red-700 text-sm font-medium">
+                      <button 
+                        onClick={() => handleDeleteProduct(product.id)}
+                        className="text-red-600 hover:text-red-700 text-sm font-medium"
+                      >
                         Delete
                       </button>
                     </div>
@@ -106,18 +177,18 @@ const Products: React.FC = () => {
 
         <div className="p-6 border-t border-gray-200 flex items-center justify-between">
           <p className="text-sm text-gray-600">
-            Showing {products.length} products
+            Showing {filteredProducts.length} of {products.length} products
           </p>
-          <div className="flex gap-2">
-            <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
-              Previous
-            </button>
-            <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
-              Next
-            </button>
-          </div>
         </div>
       </div>
+
+      <ProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveProduct}
+        product={editingProduct}
+        isLoading={isSubmitting}
+      />
     </div>
   );
 };
