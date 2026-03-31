@@ -180,6 +180,96 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&h=800&fit=crop&q=80",
     rating: 4.6,
     description: "Medium-support sports bra with removable pads. Dri-FIT technology and mesh panels provide breathability and comfort for training sessions."
+  },
+  {
+    id: 21,
+    name: "Phantom GX Elite FG",
+    category: "Footwear",
+    price: 259.99,
+    image: "https://images.unsplash.com/photo-1508182311256-e3f3e1fd81b0?w=800&h=800&fit=crop&q=80",
+    rating: 4.8,
+    description: "Engineered for agility and control on firm ground. Textured upper and responsive Zoom Air cushioning deliver quick cuts and explosive takeoffs."
+  },
+  {
+    id: 22,
+    name: "VaporMax 2023 Flyknit",
+    category: "Footwear",
+    price: 209.99,
+    image: "https://images.unsplash.com/photo-1528701800489-20be9c7b27c7?w=800&h=800&fit=crop&q=80",
+    rating: 4.7,
+    description: "Full-length Air cushioning pairs with breathable Flyknit for a light, bouncy ride. Stretchy collar gives a sock-like fit for all-day comfort."
+  },
+  {
+    id: 23,
+    name: "Run Division Challenger Vest",
+    category: "Outerwear",
+    price: 129.99,
+    image: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?w=800&h=800&fit=crop&q=80",
+    rating: 4.5,
+    description: "Wind-resistant shell with reflective hits keeps you visible on dusk runs. Packable design stows into its own pocket when the sun comes out."
+  },
+  {
+    id: 24,
+    name: "Performance Yoga Mat",
+    category: "Accessories",
+    price: 59.99,
+    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=800&fit=crop&q=80",
+    rating: 4.6,
+    description: "High-density cushioning supports joints during flows and floor work. Textured, non-slip surface stays grippy even in hot yoga sessions."
+  },
+  {
+    id: 25,
+    name: "Rep 2-in-1 Training Shorts",
+    category: "Bottoms",
+    price: 69.99,
+    image: "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=800&h=800&fit=crop&q=80",
+    rating: 4.6,
+    description: "Built-in liner provides secure coverage and storage for your phone. Lightweight woven outer layer and side vents let you move freely."
+  },
+  {
+    id: 26,
+    name: "AeroSwift Racing Singlet",
+    category: "Tops",
+    price: 74.99,
+    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&h=800&fit=crop&q=80",
+    rating: 4.7,
+    description: "Featherweight knit with targeted perforations keeps air flowing. Bonded seams reduce chafing so you can focus on negative splits."
+  },
+  {
+    id: 27,
+    name: "Club Fleece Pullover Hoodie",
+    category: "Tops",
+    price: 84.99,
+    image: "https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?w=800&h=800&fit=crop&q=80",
+    rating: 4.5,
+    description: "Brushed-back fleece delivers cozy warmth without extra weight. Roomy hood and kangaroo pocket add everyday comfort between workouts."
+  },
+  {
+    id: 28,
+    name: "Structure 25 Stability Shoes",
+    category: "Footwear",
+    price: 129.99,
+    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&q=80",
+    rating: 4.8,
+    description: "Updated foam geometry adds support for overpronators while keeping transitions smooth. Durable rubber outsole is tuned for high-mileage runners."
+  },
+  {
+    id: 29,
+    name: "All Conditions Shield Jacket",
+    category: "Outerwear",
+    price: 189.99,
+    image: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=800&h=800&fit=crop&q=80",
+    rating: 4.6,
+    description: "Weather-ready shell with sealed seams and adjustable hood keeps wind and rain out. Back venting balances airflow when pace picks up."
+  },
+  {
+    id: 30,
+    name: "Utility Elite Backpack",
+    category: "Accessories",
+    price: 99.99,
+    image: "https://images.unsplash.com/photo-1514473776127-61e4a422d0c2?w=800&h=800&fit=crop&q=80",
+    rating: 4.7,
+    description: "Multiple compartments and laptop sleeve keep your daily carry organized. Padded straps and breathable back panel stay comfortable on long commutes."
   }
 ];
 
