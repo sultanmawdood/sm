@@ -20,19 +20,28 @@ const mapApiProduct = (apiProduct: any): Product => ({
 export const productService = {
   // Fetch all products
   getAllProducts: async (): Promise<Product[]> => {
+    console.log('API_BASE_URL:', API_BASE_URL);
+    console.log('useBackend():', useBackend());
+    
     try {
       if (useBackend()) {
+        console.log('Fetching from backend:', `${API_BASE_URL}/products`);
         const response = await fetch(`${API_BASE_URL}/products`);
+        console.log('Response status:', response.status);
+        
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
         const data = await response.json();
+        console.log('Backend data received:', data.length, 'products');
         return data.map(mapApiProduct);
       }
+      console.log('Using static fallback data');
       // Static fallback (CORS-safe) for Vercel/static deployments
       return products;
     } catch (error) {
       console.error('Error fetching products:', error);
+      console.log('Falling back to static data');
       // On failure, fallback to static data so UI stays functional
       return products;
     }
