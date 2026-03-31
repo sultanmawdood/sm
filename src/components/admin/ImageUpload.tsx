@@ -14,14 +14,21 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, currentImage }
     const file = event.target.files?.[0];
     if (!file) return;
 
+    console.log('=== FILE UPLOAD DEBUG ===');
+    console.log('File selected:', file.name);
+    console.log('File type:', file.type);
+    console.log('File size:', file.size, 'bytes');
+
     // Validate file type
     if (!file.type.startsWith('image/')) {
+      console.error('File type validation failed:', file.type);
       alert('Please select an image file');
       return;
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
+      console.error('File size validation failed:', file.size);
       alert('Image size must be less than 5MB');
       return;
     }
@@ -41,24 +48,57 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, currentImage }
       const formData = new FormData();
       formData.append('image', file);
 
-      const response = await fetch('http://localhost:5001/api/upload', {
+      const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
+      const uploadUrl = `${API_URL}/upload`;
+      
+      console.log('Uploading to:', uploadUrl);
+      console.log('FormData created with image field');
+      
+      const response = await fetch(uploadUrl, {
         method: 'POST',
         body: formData,
+        mode: 'cors',
       });
 
+      console.log('Response received');
+      console.log('Status:', response.status);
+      console.log('Status Text:', response.statusText);
+      
       if (!response.ok) {
-        throw new Error('Upload failed');
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
+        
+        let errorData;
+        try {
+          errorData = JSON.parse(errorText);
+        } catch {
+          errorData = { error: errorText || 'Upload failed' };
+        }
+        
+        throw new Error(errorData.error || `Server error: ${response.status}`);
       }
 
       const data = await response.json();
-      const imageUrl = `http://localhost:5001${data.imageUrl}`;
+      console.log('Upload success:', data);
+      
+      const imageUrl = `${API_URL.replace('/api', '')}${data.imageUrl}`;
+      console.log('Final image URL:', imageUrl);
+      
       onImageUpload(imageUrl);
+      alert('Image uploaded successfully!');
       
     } catch (error) {
-      console.error('Error uploading image:', error);
-      alert('Failed to upload image');
+      console.error('=== UPLOAD ERROR ===');
+      console.error('Error type:', error instanceof Error ? error.constructor.name : typeof error);
+      console.error('Error message:', error instanceof Error ? error.message : String(error));
+      console.error('Full error:', error);
+      
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      alert(`Failed to upload image: ${errorMessage}`);
+      setPreview(currentImage || '');
     } finally {
       setIsUploading(false);
+      console.log('=== UPLOAD COMPLETE ===');
     }
   };
 

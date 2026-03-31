@@ -21,25 +21,46 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-primary">
       {/* Hero Section */}
-      <section className="relative h-[calc(100vh-64px)] min-h-[600px] flex items-center justify-center overflow-hidden bg-light">
-        <img
-          src="https://i.pinimg.com/736x/fe/0c/60/fe0c600fb30d3f975de4d3f3d73106d1.jpg"
-          alt="Hero"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/30"></div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 text-white leading-tight">
-            JUST DO IT
-          </h1>
-          <p className="text-white text-lg sm:text-xl md:text-2xl mb-8 font-light">
-            Move the world forward with premium sports gear
-          </p>
-          <Link to="/shop">
-            <Button variant="primary" className="text-base sm:text-lg px-8 py-4">
-              Shop Now
-            </Button>
-          </Link>
+      <section className="relative h-[500px] sm:h-[600px] flex items-center overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0">
+          <img
+            src="https://i.pinimg.com/736x/fe/0c/60/fe0c600fb30d3f975de4d3f3d73106d1.jpg"
+            alt="Hero"
+            className="w-full h-full object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+        </div>
+
+        <div className="relative z-10 max-w-[1920px] mx-auto px-4 sm:px-8 lg:px-12 w-full">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/30 rounded-full px-3 py-1.5 mb-4 backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
+              <span className="text-accent text-xs font-semibold tracking-wider">NEW COLLECTION 2024</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 text-white leading-[0.9] tracking-tight">
+              UNLEASH
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-white">YOUR POWER</span>
+            </h1>
+
+            <p className="text-gray-300 text-base sm:text-lg mb-6 font-light max-w-xl">
+              Premium sports gear engineered for champions.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link to="/shop">
+                <Button variant="primary" className="px-8 py-3">
+                  Shop Now
+                </Button>
+              </Link>
+              <Link to="/shop">
+                <Button variant="secondary" className="px-8 py-3 bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20">
+                  View All
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

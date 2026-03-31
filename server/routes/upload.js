@@ -31,34 +31,50 @@ const upload = multer({
     fileSize: 5 * 1024 * 1024 // 5MB limit
   },
   fileFilter: (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif/;
-    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = allowedTypes.test(file.mimetype);
-
-    if (mimetype && extname) {
+    console.log('File received:', file.originalname, 'Type:', file.mimetype);
+    
+    // Check if it's an image by mimetype
+    if (file.mimetype.startsWith('image/')) {
+      console.log('File accepted');
       return cb(null, true);
     } else {
+      console.log('File rejected - not an image type');
       cb(new Error('Only image files are allowed!'));
     }
   }
 });
 
 // Upload endpoint
-router.post('/', upload.single('image'), (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+router.post('/', (req, res) => {
+  upload.single('image')(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      // Multer error
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'File size too large. Max 5MB allowed.' });
+      }
+      return res.status(400).json({ error: err.message });
+    } else if (err) {
+      // Other errors
+      return res.status(400).json({ error: err.message });
     }
 
-    const imageUrl = `/uploads/${req.file.filename}`;
-    res.json({ 
-      success: true, 
-      imageUrl,
-      filename: req.file.filename 
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const imageUrl = `/uploads/${req.file.filename}`;
+      console.log('Image uploaded successfully:', imageUrl);
+      res.json({ 
+        success: true, 
+        imageUrl,
+        filename: req.file.filename 
+      });
+    } catch (error) {
+      console.error('Upload error:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
 });
 
 export default router;
