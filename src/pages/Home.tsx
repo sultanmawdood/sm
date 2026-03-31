@@ -42,29 +42,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Featured Banner */}
-      <section className="py-12 sm:py-16 bg-white">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="relative h-[400px] sm:h-[500px] md:h-[600px] rounded-lg overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1920&h=600&fit=crop&q=80"
-              alt="Featured"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-8 sm:p-12">
-              <p className="text-white text-sm sm:text-base font-medium mb-2">New Arrival</p>
-              <h2 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 max-w-2xl">
-                Performance Meets Style
-              </h2>
-              <Link to="/shop">
-                <Button variant="primary" className="w-fit">
-                  Explore
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Categories */}
       <section className="py-12 sm:py-16 bg-white">
